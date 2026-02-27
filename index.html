@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryFlow - Blog Publishing Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                StoryFlow
+            </a>
+
+            <button class="mobile-toggle" id="mobileToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#">Home</a>
+                <a href="#">Technology</a>
+                <a href="#">Lifestyle</a>
+                <a href="#">Travel</a>
+                <a href="#">About</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="search-bar">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search articles...">
+                </div>
+                <button class="btn-primary" id="writeBtn">Write</button>
+                <div class="user-avatar">JD</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-card">
+            <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png" alt="Workspace" class="hero-image">
+            <div class="hero-content">
+                <span class="tag">Productivity</span>
+                <h1 class="hero-title">The Art of Deep Work: Mastering Focus in a Distracted World</h1>
+                <p class="hero-excerpt">Discover proven strategies to eliminate distractions and achieve a state of flow in your daily work routine.</p>
+                <div class="author-meta">
+                    <img src="https://ui-avatars.com/api/?name=Alex+Morgan&background=random" alt="Author" class="author-img">
+                    <div>
+                        <strong>Alex Morgan</strong><br>
+                        <span>Oct 24, 2023 · 6 min read</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Articles Column -->
+        <main>
+            <div class="section-header">
+                <h2 class="section-title">Latest Stories</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+
+            <div class="article-grid">
+                <!-- Card 1 -->
+                <article class="article-card">
+                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/192770f8f-29b6-4cab-a0f2-351f53e67032.png" alt="Abstract Tech" class="card-image">
+                    <div class="card-body">
+                        <span class="tag" style="background: #f0fdf4; color: #16a34a;">Technology</span>
+                        <h3 class="card-title">The Future of AI in Creative Design</h3>
+                        <p class="card-excerpt">How artificial intelligence is reshaping the landscape of digital art and graphic design tools.</p>
+                        <div class="card-footer">
+                            <div class="card-author">
+                                <img src="https://ui-avatars.com/api/?name=Sarah+J&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
+                                Sarah J.
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn like-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <span>124</span>
+                                </button>
+                                <button class="action-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="article-card">
+                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/1c29d77c8-0e60-4e33-b8d1-d5088ef7dab3.png" alt="Mountain Lake" class="card-image">
+                    <div class="card-body">
+                        <span class="tag" style="background: #eff6ff; color: #2563eb;">Travel</span>
+                        <h3 class="card-title">Hidden Gems of the Scottish Highlands</h3>
+                        <p class="card-excerpt">A journey through the misty mountains and serene lochs that define the beauty of Scotland.</p>
+                        <div class="card-footer">
+                            <div class="card-author">
+                                <img src="https://ui-avatars.com/api/?name=Mike+R&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
+                                Mike R.
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn like-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <span>89</span>
+                                </button>
+                                <button class="action-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="article-card">
+                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/15e09b58c-90c9-49b3-b31d-b8f3c1e129d1.png" alt="Healthy Salad" class="card-image">
+                    <div class="card-body">
+                        <span class="tag" style="background: #fff7ed; color: #ea580c;">Lifestyle</span>
+                        <h3 class="card-title">5 Nutrient-Packed Bowls for Winter</h3>
+                        <p class="card-excerpt">Stay warm and healthy this season with these delicious and easy-to-make winter salad recipes.</p>
+                        <div class="card-footer">
+                            <div class="card-author">
+                                <img src="https://ui-avatars.com/api/?name=Emma+L&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
+                                Emma L.
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn like-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <span>210</span>
+                                </button>
+                                <button class="action-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                 <!-- Card 4 (Duplicate for grid fill) -->
+                 <article class="article-card">
+                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png" alt="Workspace" class="card-image">
+                    <div class="card-body">
+                        <span class="tag" style="background: #f3e8ff; color: #9333ea;">Career</span>
+                        <h3 class="card-title">Remote Work: Finding Balance</h3>
+                        <p class="card-excerpt">Tips and tricks for maintaining a healthy work-life balance while working from home.</p>
+                        <div class="card-footer">
+                            <div class="card-author">
+                                <img src="https://ui-avatars.com/api/?name=David+K&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
+                                David K.
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn like-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <span>56</span>
+                                </button>
+                                <button class="action-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Trending Topics</h3>
+                <ul class="category-list">
+                    <li><a href="#" class="category-link">Artificial Intelligence <span class="category-count">124</span></a></li>
+                    <li><a href="#" class="category-link">Web Development <span class="category-count">89</span></a></li>
+                    <li><a href="#" class="category-link">Mental Health <span class="category-count">67</span></a></li>
+                    <li><a href="#" class="category-link">Sustainable Living <span class="category-count">45</span></a></li>
+                    <li><a href="#" class="category-link">Photography <span class="category-count">32</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Newsletter</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Get the latest stories delivered to your inbox weekly.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">About StoryFlow</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">StoryFlow is a platform for thinkers, creators, and storytellers to share their unique perspectives with the world.</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Write Modal -->
+    <div class="modal-overlay" id="writeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 style="font-size: 1.5rem; font-weight: 700;">Create New Story</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <form id="createStoryForm">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" placeholder="Enter an engaging title" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-input">
+                        <option>Technology</option>
+                        <option>Lifestyle</option>
+                        <option>Travel</option>
+                        <option>Health</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-textarea" placeholder="Tell your story..." required></textarea>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="button" class="btn-primary" style="background: transparent; color: var(--text-main); border: 1px solid var(--border);" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Publish Story</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>StoryFlow</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Guidelines</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 StoryFlow Platform. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Modal Logic
+        const writeBtn = document.getElementById('writeBtn');
+        const writeModal = document.getElementById('writeModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const createStoryForm = document.getElementById('createStoryForm');
+
+        function openModal() {
+            writeModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function hideModal() {
+            writeModal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        writeBtn.addEventListener('click', openModal);
+        closeModal.addEventListener('click', hideModal);
+        cancelBtn.addEventListener('click', hideModal);
+        
+        // Close modal when clicking outside
+        writeModal.addEventListener('click', (e) => {
+            if (e.target === writeModal) {
+                hideModal();
+            }
+        });
+
+        // Form Submission Simulation
+        createStoryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = createStoryForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Publishing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = 'Published!';
+                btn.style.background = '#10b981'; // Green success color
+                
+                setTimeout(() => {
+                    hideModal();
+                    createStoryForm.reset();
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.style.background = ''; // Reset color
+                    alert('Your story has been published successfully!');
+                }, 1000);
+            }, 1500);
+        });
+
+        // Newsletter Form Simulation
+        const newsletterForm = document.getElementById('newsletterForm');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = newsletterForm.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Subscribed!';
+            btn.style.background = '#10b981';
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = '';
+                newsletterForm.reset();
+            }, 3000);
+        });
+
+        // Like Button Toggle
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('liked');
+                const countSpan = this.querySelector('span');
+                let count = parseInt(countSpan.innerText);
+                
+                if (this.classList.contains('liked')) {
+                    countSpan.innerText = count + 1;
+                } else {
+                    countSpan.innerText = count - 1;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
