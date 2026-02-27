@@ -4,367 +4,1561 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StoryFlow - Blog Publishing Platform</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- External CSS -->
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-
-    <!-- Header -->
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
-                StoryFlow
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="navigateTo('home')">
+                <i class="bi bi-pen-fill"></i> StoryFlow
             </a>
-
-            <button class="mobile-toggle" id="mobileToggle">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-
-            <nav class="nav-links" id="navLinks">
-                <a href="#">Home</a>
-                <a href="#">Technology</a>
-                <a href="#">Lifestyle</a>
-                <a href="#">Travel</a>
-                <a href="#">About</a>
-            </nav>
-
-            <div class="nav-actions">
-                <div class="search-bar">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" placeholder="Search articles...">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="navigateTo('home')" data-page="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="navigateTo('about')" data-page="about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="navigateTo('contact')" data-page="contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="search-container d-none d-md-block">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search articles...">
+                    </div>
+                    <!-- Auth Buttons - Shown when not logged in -->
+                    <div id="authButtons">
+                        <button class="btn btn-outline-custom me-2" onclick="openLoginModal()">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </button>
+                        <button class="btn btn-primary-custom" onclick="openRegisterModal()">
+                            <i class="bi bi-person-plus"></i> Register
+                        </button>
+                    </div>
+                    <!-- User Menu - Shown when logged in -->
+                    <div id="userMenu" class="d-none">
+                        <div class="user-info" data-bs-toggle="dropdown">
+                            <div class="user-avatar" id="userAvatar">JD</div>
+                            <span class="user-name d-none d-md-block" id="userName">John Doe</span>
+                            <i class="bi bi-chevron-down d-none d-md-block"></i>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li><a class="dropdown-item dropdown-item-custom" href="#" onclick="navigateTo('profile')"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="#" onclick="navigateTo('create')"><i class="bi bi-pencil-square me-2"></i> Write Article</a></li>
+                            <li><a class="dropdown-item dropdown-item-custom" href="#"><i class="bi bi-bookmark me-2"></i> Saved Articles</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item dropdown-item-custom danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <button class="btn-primary" id="writeBtn">Write</button>
-                <div class="user-avatar">JD</div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-card">
-            <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png" alt="Workspace" class="hero-image">
-            <div class="hero-content">
-                <span class="tag">Productivity</span>
-                <h1 class="hero-title">The Art of Deep Work: Mastering Focus in a Distracted World</h1>
-                <p class="hero-excerpt">Discover proven strategies to eliminate distractions and achieve a state of flow in your daily work routine.</p>
-                <div class="author-meta">
-                    <img src="https://ui-avatars.com/api/?name=Alex+Morgan&background=random" alt="Author" class="author-img">
-                    <div>
-                        <strong>Alex Morgan</strong><br>
-                        <span>Oct 24, 2023 · 6 min read</span>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="auth-modal">
+            <button class="close-modal" onclick="closeLoginModal()">&times;</button>
+            <div class="auth-modal-header">
+                <h2 class="auth-modal-title">Welcome Back</h2>
+                <p class="auth-modal-subtitle">Sign in to continue to StoryFlow</p>
+            </div>
+            
+            <form id="loginForm" novalidate>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control form-control-custom" id="loginEmail" placeholder="Enter your email" required>
+                    <div class="validation-message">Please enter a valid email address</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="input-group-custom">
+                        <input type="password" class="form-control form-control-custom" id="loginPassword" placeholder="Enter your password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('loginPassword', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="validation-message">Please enter your password</div>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check-custom">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" onclick="closeLoginModal(); showToast('Password reset link sent to your email!', 'info')">Forgot Password?</a>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+                    <span class="loading-spinner" id="loginSpinner"></span>
+                    <span id="loginBtnText">Sign In</span>
+                </button>
+            </form>
+            
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+            
+            <div class="social-login">
+                <button class="social-btn google" onclick="socialLogin('google')">
+                    <i class="bi bi-google"></i> Google
+                </button>
+                <button class="social-btn facebook" onclick="socialLogin('facebook')">
+                    <i class="bi bi-facebook"></i> Facebook
+                </button>
+            </div>
+            
+            <div class="auth-switch">
+                Don't have an account? <a onclick="closeLoginModal(); openRegisterModal()">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="auth-modal">
+            <button class="close-modal" onclick="closeRegisterModal()">&times;</button>
+            <div class="auth-modal-header">
+                <h2 class="auth-modal-title">Create Account</h2>
+                <p class="auth-modal-subtitle">Join StoryFlow and start sharing your stories</p>
+            </div>
+            
+            <form id="registerForm" novalidate>
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control form-control-custom" id="registerName" placeholder="Enter your full name" required>
+                    <div class="validation-message">Please enter your name (minimum 2 characters)</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control form-control-custom" id="registerEmail" placeholder="Enter your email" required>
+                    <div class="validation-message">Please enter a valid email address</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="input-group-custom">
+                        <input type="password" class="form-control form-control-custom" id="registerPassword" placeholder="Create a password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('registerPassword', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength" id="passwordStrength"></div>
+                    <div class="validation-message">Password must be at least 8 characters</div>
+                    <ul class="password-requirements" id="passwordRequirements">
+                        <li id="req-length"><i class="bi bi-circle"></i> At least 8 characters</li>
+                        <li id="req-number"><i class="bi bi-circle"></i> Contains a number</li>
+                        <li id="req-uppercase"><i class="bi bi-circle"></i> Contains uppercase letter</li>
+                        <li id="req-special"><i class="bi bi-circle"></i> Contains special character</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Confirm Password</label>
+                    <div class="input-group-custom">
+                        <input type="password" class="form-control form-control-custom" id="registerConfirmPassword" placeholder="Confirm your password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('registerConfirmPassword', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="validation-message">Passwords do not match</div>
+                </div>
+                
+                <div class="form-check-custom mb-3">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the <a href="#" onclick="navigateTo('terms')">Terms of Service</a> and <a href="#" onclick="navigateTo('privacy')">Privacy Policy</a></label>
+                </div>
+                <div class="validation-message" id="termsError">You must agree to the terms</div>
+                
+                <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+                    <span class="loading-spinner" id="registerSpinner"></span>
+                    <span id="registerBtnText">Create Account</span>
+                </button>
+            </form>
+            
+            <div class="auth-divider">
+                <span>or sign up with</span>
+            </div>
+            
+            <div class="social-login">
+                <button class="social-btn google" onclick="socialLogin('google')">
+                    <i class="bi bi-google"></i> Google
+                </button>
+                <button class="social-btn facebook" onclick="socialLogin('facebook')">
+                    <i class="bi bi-facebook"></i> Facebook
+                </button>
+            </div>
+            
+            <div class="auth-switch">
+                Already have an account? <a onclick="closeRegisterModal(); openLoginModal()">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: HOME -->
+    <section id="home" class="page-section active">
+        <!-- Hero -->
+        <div class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h1 class="hero-title">Discover Amazing Stories</h1>
+                        <p class="hero-subtitle">Explore thousands of articles from writers around the world. Share your thoughts, inspire others, and join our growing community.</p>
+                        <div class="mt-4">
+                            <button class="btn btn-light btn-lg me-3" onclick="checkAuthAndNavigate('create')">
+                                <i class="bi bi-pencil-square"></i> Start Writing
+                            </button>
+                            <button class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-play-circle"></i> Learn More
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 d-none d-lg-block text-center">
+                        <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png" alt="Writing" style="max-width: 100%; border-radius: var(--radius);">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container mb-5">
+            <div class="row">
+                <!-- Articles Grid -->
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="fw-bold mb-0">Latest Stories</h2>
+                        <select class="form-select form-select-sm" style="width: auto;">
+                            <option>Most Recent</option>
+                            <option>Most Popular</option>
+                            <option>Most Discussed</option>
+                        </select>
+                    </div>
+
+                    <div class="row g-4" id="articlesGrid">
+                        <!-- Articles will be loaded here by JavaScript -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav class="mt-5">
+                        <ul class="pagination pagination-custom justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Categories -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul class="mb-0">
+                            <li class="category-list-item">
+                                <span><i class="bi bi-laptop me-2"></i>Technology</span>
+                                <span class="category-count">124</span>
+                            </li>
+                            <li class="category-list-item">
+                                <span><i class="bi bi-heart me-2"></i>Lifestyle</span>
+                                <span class="category-count">89</span>
+                            </li>
+                            <li class="category-list-item">
+                                <span><i class="bi bi-airplane me-2"></i>Travel</span>
+                                <span class="category-count">67</span>
+                            </li>
+                            <li class="category-list-item">
+                                <span><i class="bi bi-activity me-2"></i>Health</span>
+                                <span class="category-count">45</span>
+                            </li>
+                            <li class="category-list-item">
+                                <span><i class="bi bi-briefcase me-2"></i>Career</span>
+                                <span class="category-count">32</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Newsletter</h3>
+                        <p class="text-muted small mb-3">Get the latest stories delivered to your inbox weekly.</p>
+                        <form id="newsletterForm">
+                            <div class="mb-3">
+                                <input type="email" class="form-control form-control-custom" placeholder="Your email address" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom w-100">
+                                <i class="bi bi-envelope"></i> Subscribe
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Trending -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Trending Now</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="fw-bold text-primary me-3" style="font-size: 1.5rem;">01</span>
+                            <div>
+                                <h6 class="mb-1"><a href="#" onclick="viewArticle(1)">The Future of AI in Design</a></h6>
+                                <small class="text-muted">2.4k views</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="fw-bold text-primary me-3" style="font-size: 1.5rem;">02</span>
+                            <div>
+                                <h6 class="mb-1"><a href="#" onclick="viewArticle(2)">Remote Work Balance</a></h6>
+                                <small class="text-muted">1.8k views</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <span class="fw-bold text-primary me-3" style="font-size: 1.5rem;">03</span>
+                            <div>
+                                <h6 class="mb-1"><a href="#" onclick="viewArticle(3)">Healthy Winter Recipes</a></h6>
+                                <small class="text-muted">1.5k views</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Articles Column -->
-        <main>
-            <div class="section-header">
-                <h2 class="section-title">Latest Stories</h2>
-                <a href="#" class="view-all">View All</a>
-            </div>
+    <!-- PAGE 2: ARTICLE DETAIL -->
+    <section id="article" class="page-section">
+        <div class="container py-5">
+            <button class="btn btn-outline-custom mb-4" onclick="navigateTo('home')">
+                <i class="bi bi-arrow-left"></i> Back to Home
+            </button>
 
-            <div class="article-grid">
-                <!-- Card 1 -->
-                <article class="article-card">
-                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/192770f8f-29b6-4cab-a0f2-351f53e67032.png" alt="Abstract Tech" class="card-image">
-                    <div class="card-body">
-                        <span class="tag" style="background: #f0fdf4; color: #16a34a;">Technology</span>
-                        <h3 class="card-title">The Future of AI in Creative Design</h3>
-                        <p class="card-excerpt">How artificial intelligence is reshaping the landscape of digital art and graphic design tools.</p>
-                        <div class="card-footer">
-                            <div class="card-author">
-                                <img src="https://ui-avatars.com/api/?name=Sarah+J&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
-                                Sarah J.
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn like-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                    <span>124</span>
-                                </button>
-                                <button class="action-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                                </button>
-                            </div>
-                        </div>
+            <div class="article-detail-header">
+                <span class="badge badge-custom badge-tech" id="articleCategory">Technology</span>
+                <h1 class="fw-bold mb-3" id="articleTitle">The Future of AI in Creative Design</h1>
+                <div class="article-meta">
+                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=random" alt="Author" class="author-avatar" id="articleAuthorAvatar">
+                    <div>
+                        <div class="fw-bold" id="articleAuthor">Sarah Johnson</div>
+                        <small class="text-muted" id="articleDate">October 24, 2023 · 6 min read</small>
                     </div>
-                </article>
-
-                <!-- Card 2 -->
-                <article class="article-card">
-                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/1c29d77c8-0e60-4e33-b8d1-d5088ef7dab3.png" alt="Mountain Lake" class="card-image">
-                    <div class="card-body">
-                        <span class="tag" style="background: #eff6ff; color: #2563eb;">Travel</span>
-                        <h3 class="card-title">Hidden Gems of the Scottish Highlands</h3>
-                        <p class="card-excerpt">A journey through the misty mountains and serene lochs that define the beauty of Scotland.</p>
-                        <div class="card-footer">
-                            <div class="card-author">
-                                <img src="https://ui-avatars.com/api/?name=Mike+R&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
-                                Mike R.
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn like-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                    <span>89</span>
-                                </button>
-                                <button class="action-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="ms-auto d-flex gap-3">
+                        <button class="btn btn-like" id="likeBtn">
+                            <i class="bi bi-heart"></i>
+                            <span id="likeCount">234</span>
+                        </button>
+                        <button class="btn btn-like">
+                            <i class="bi bi-bookmark"></i>
+                        </button>
+                        <button class="btn btn-like">
+                            <i class="bi bi-share"></i>
+                        </button>
                     </div>
-                </article>
+                </div>
+            </div>
 
-                <!-- Card 3 -->
-                <article class="article-card">
-                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/15e09b58c-90c9-49b3-b31d-b8f3c1e129d1.png" alt="Healthy Salad" class="card-image">
+            <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/192770f8f-29b6-4cab-a0f2-351f53e67032.png" alt="Article" class="article-detail-image" id="articleImage">
+
+            <div class="article-content" id="articleContent">
+                <!-- Content will be loaded by JavaScript -->
+            </div>
+
+            <!-- Comments Section -->
+            <div class="mt-5">
+                <h3 class="fw-bold mb-4">Comments (<span id="commentCount">12</span>)</h3>
+                
+                <div class="card-custom mb-4">
                     <div class="card-body">
-                        <span class="tag" style="background: #fff7ed; color: #ea580c;">Lifestyle</span>
-                        <h3 class="card-title">5 Nutrient-Packed Bowls for Winter</h3>
-                        <p class="card-excerpt">Stay warm and healthy this season with these delicious and easy-to-make winter salad recipes.</p>
-                        <div class="card-footer">
-                            <div class="card-author">
-                                <img src="https://ui-avatars.com/api/?name=Emma+L&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
-                                Emma L.
+                        <form id="commentForm">
+                            <div class="mb-3">
+                                <textarea class="form-control form-control-custom" rows="3" placeholder="Write a comment..." required></textarea>
                             </div>
-                            <div class="card-actions">
-                                <button class="action-btn like-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                    <span>210</span>
-                                </button>
-                                <button class="action-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                                </button>
-                            </div>
-                        </div>
+                            <button type="submit" class="btn btn-primary-custom">
+                                <i class="bi bi-send"></i> Post Comment
+                            </button>
+                        </form>
                     </div>
-                </article>
-
-                 <!-- Card 4 (Duplicate for grid fill) -->
-                 <article class="article-card">
-                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png" alt="Workspace" class="card-image">
-                    <div class="card-body">
-                        <span class="tag" style="background: #f3e8ff; color: #9333ea;">Career</span>
-                        <h3 class="card-title">Remote Work: Finding Balance</h3>
-                        <p class="card-excerpt">Tips and tricks for maintaining a healthy work-life balance while working from home.</p>
-                        <div class="card-footer">
-                            <div class="card-author">
-                                <img src="https://ui-avatars.com/api/?name=David+K&background=random" style="width:24px; height:24px; border-radius:50%;" alt="">
-                                David K.
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn like-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                    <span>56</span>
-                                </button>
-                                <button class="action-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </main>
-
-        <!-- Sidebar -->
-        <aside>
-            <div class="sidebar-widget">
-                <h3 class="widget-title">Trending Topics</h3>
-                <ul class="category-list">
-                    <li><a href="#" class="category-link">Artificial Intelligence <span class="category-count">124</span></a></li>
-                    <li><a href="#" class="category-link">Web Development <span class="category-count">89</span></a></li>
-                    <li><a href="#" class="category-link">Mental Health <span class="category-count">67</span></a></li>
-                    <li><a href="#" class="category-link">Sustainable Living <span class="category-count">45</span></a></li>
-                    <li><a href="#" class="category-link">Photography <span class="category-count">32</span></a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-widget">
-                <h3 class="widget-title">Newsletter</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Get the latest stories delivered to your inbox weekly.</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
-                    <button type="submit" class="newsletter-btn">Subscribe</button>
-                </form>
-            </div>
-
-            <div class="sidebar-widget">
-                <h3 class="widget-title">About StoryFlow</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">StoryFlow is a platform for thinkers, creators, and storytellers to share their unique perspectives with the world.</p>
-            </div>
-        </aside>
-    </div>
-
-    <!-- Write Modal -->
-    <div class="modal-overlay" id="writeModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 style="font-size: 1.5rem; font-weight: 700;">Create New Story</h2>
-                <button class="close-modal" id="closeModal">&times;</button>
-            </div>
-            <form id="createStoryForm">
-                <div class="form-group">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-input" placeholder="Enter an engaging title" required>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Category</label>
-                    <select class="form-input">
-                        <option>Technology</option>
-                        <option>Lifestyle</option>
-                        <option>Travel</option>
-                        <option>Health</option>
-                    </select>
+
+                <div class="comment-list" id="commentList">
+                    <!-- Comments will be loaded here -->
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Content</label>
-                    <textarea class="form-textarea" placeholder="Tell your story..." required></textarea>
+            </div>
+
+            <!-- Related Articles -->
+            <div class="mt-5">
+                <h3 class="fw-bold mb-4">Related Articles</h3>
+                <div class="row g-4" id="relatedArticles">
+                    <!-- Related articles will be loaded here -->
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="button" class="btn-primary" style="background: transparent; color: var(--text-main); border: 1px solid var(--border);" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="btn-primary">Publish Story</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- PAGE 3: CREATE ARTICLE -->
+    <section id="create" class="page-section">
+        <div class="container py-5">
+            <button class="btn btn-outline-custom mb-4" onclick="navigateTo('home')">
+                <i class="bi bi-arrow-left"></i> Back to Home
+            </button>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card-custom">
+                        <div class="card-body p-4">
+                            <h2 class="fw-bold mb-4">Create New Story</h2>
+                            
+                            <form id="createArticleForm" novalidate>
+                                <div class="mb-4">
+                                    <label class="form-label">Title *</label>
+                                    <input type="text" class="form-control form-control-custom" id="articleTitleInput" placeholder="Enter an engaging title" required>
+                                    <div class="validation-message">Please enter a title (minimum 10 characters)</div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Category *</label>
+                                    <select class="form-control form-control-custom" id="articleCategoryInput" required>
+                                        <option value="">Select a category</option>
+                                        <option value="Technology">Technology</option>
+                                        <option value="Lifestyle">Lifestyle</option>
+                                        <option value="Travel">Travel</option>
+                                        <option value="Health">Health</option>
+                                        <option value="Career">Career</option>
+                                    </select>
+                                    <div class="validation-message">Please select a category</div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Cover Image URL</label>
+                                    <input type="url" class="form-control form-control-custom" id="articleImageInput" placeholder="https://example.com/image.jpg">
+                                    <small class="text-muted">Leave empty for a default image</small>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Content *</label>
+                                    <textarea class="form-control form-control-custom" id="articleContentInput" rows="10" placeholder="Tell your story..." required></textarea>
+                                    <div class="validation-message">Please enter content (minimum 50 characters)</div>
+                                    <small class="text-muted d-block mt-1" id="charCount">0 characters</small>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Tags (comma separated)</label>
+                                    <input type="text" class="form-control form-control-custom" id="articleTagsInput" placeholder="AI, Design, Technology">
+                                </div>
+
+                                <div class="d-flex gap-3">
+                                    <button type="button" class="btn btn-outline-custom" onclick="navigateTo('home')">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary-custom">
+                                        <span class="loading-spinner" id="publishSpinner"></span>
+                                        <span id="publishBtnText">Publish Story</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 4: ABOUT -->
+    <section id="about" class="page-section">
+        <div class="about-hero">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">About StoryFlow</h1>
+                <p class="lead mb-0">Empowering writers and readers worldwide since 2023</p>
+            </div>
+        </div>
+
+        <div class="container mb-5">
+            <!-- Mission -->
+            <div class="row mb-5 align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png" alt="Our Mission" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">Our Mission</h2>
+                    <p class="text-muted mb-4">StoryFlow is dedicated to creating a platform where ideas flourish and voices are heard. We believe in the power of storytelling to connect people, inspire change, and build communities.</p>
+                    <p class="text-muted mb-4">Our platform provides tools for writers to share their expertise, experiences, and creativity with a global audience. Whether you're a seasoned journalist or a first-time blogger, StoryFlow is your home for meaningful content.</p>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-number">50K+</div>
+                                <div class="stat-label">Active Writers</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-number">1M+</div>
+                                <div class="stat-label">Monthly Readers</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-number">100K+</div>
+                                <div class="stat-label">Articles Published</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-number">150+</div>
+                                <div class="stat-label">Countries</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team -->
+            <div class="mb-5">
+                <h2 class="fw-bold text-center mb-5">Meet Our Team</h2>
+                <div class="row">
+                    <div class="col-md-4 team-member">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Morgan&background=4f46e5&color=fff&size=150" alt="CEO" class="team-member-img">
+                        <h4 class="fw-bold">Alex Morgan</h4>
+                        <p class="text-muted">CEO & Founder</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-custom"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-custom"><i class="bi bi-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 team-member">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=7c3aed&color=fff&size=150" alt="CTO" class="team-member-img">
+                        <h4 class="fw-bold">Sarah Chen</h4>
+                        <p class="text-muted">Chief Technology Officer</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-custom"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-custom"><i class="bi bi-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 team-member">
+                        <img src="https://ui-avatars.com/api/?name=Mike+Ross&background=059669&color=fff&size=150" alt="Head of Content" class="team-member-img">
+                        <h4 class="fw-bold">Mike Ross</h4>
+                        <p class="text-muted">Head of Content</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-custom"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-custom"><i class="bi bi-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values -->
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card-custom h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-lightbulb display-4 text-primary mb-3"></i>
+                            <h4 class="fw-bold">Innovation</h4>
+                            <p class="text-muted">We continuously innovate to provide the best writing and reading experience.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-custom h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-people display-4 text-primary mb-3"></i>
+                            <h4 class="fw-bold">Community</h4>
+                            <p class="text-muted">Building a supportive community where writers and readers thrive together.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-custom h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-shield-check display-4 text-primary mb-3"></i>
+                            <h4 class="fw-bold">Trust</h4>
+                            <p class="text-muted">Maintaining the highest standards of quality and authenticity in content.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="mt-5">
+                <h2 class="fw-bold text-center mb-5">Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h5 class="fw-bold">2023</h5>
+                            <p class="text-muted">StoryFlow launched with 100 founding writers</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h5 class="fw-bold">2022</h5>
+                            <p class="text-muted">Reached 50,000 active writers milestone</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h5 class="fw-bold">2021</h5>
+                            <p class="text-muted">Expanded to 150+ countries worldwide</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h5 class="fw-bold">2020</h5>
+                            <p class="text-muted">StoryFlow was founded in San Francisco</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 5: CONTACT -->
+    <section id="contact" class="page-section">
+        <div class="contact-hero">
+            <div class="container">
+                <h1 class="display-5 fw-bold text-center mb-3">Get in Touch</h1>
+                <p class="lead text-muted text-center mb-0">Have questions? We'd love to hear from you.</p>
+            </div>
+        </div>
+
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Our Office</h5>
+                            <p class="text-muted mb-0">123 Innovation Street<br>Tech City, TC 12345<br>United States</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Email Us</h5>
+                            <p class="text-muted mb-0">support@storyflow.com<br>hello@storyflow.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Call Us</h5>
+                            <p class="text-muted mb-0">+1 (555) 123-4567<br>Mon-Fri 9am-6pm EST</p>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget mt-4">
+                        <h3 class="widget-title">Follow Us</h3>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a href="#" class="btn btn-outline-custom"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="btn btn-outline-custom"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="btn btn-outline-custom"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="btn btn-outline-custom"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-outline-custom"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="card-custom">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bold mb-4">Send us a Message</h3>
+                            
+                            <form id="contactForm" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="form-control form-control-custom" id="firstName" required>
+                                        <div class="validation-message">Please enter your first name</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control form-control-custom" id="lastName" required>
+                                        <div class="validation-message">Please enter your last name</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control form-control-custom" id="contactEmail" required>
+                                        <div class="validation-message">Please enter a valid email address</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control form-control-custom" id="phone">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Subject *</label>
+                                        <select class="form-control form-control-custom" id="subject" required>
+                                            <option value="">Select a subject</option>
+                                            <option value="general">General Inquiry</option>
+                                            <option value="support">Technical Support</option>
+                                            <option value="partnership">Partnership</option>
+                                            <option value="feedback">Feedback</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="validation-message">Please select a subject</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Message *</label>
+                                        <textarea class="form-control form-control-custom" id="message" rows="5" required></textarea>
+                                        <div class="validation-message">Please enter your message (minimum 20 characters)</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                                            <label class="form-check-label" for="newsletter">
+                                                Subscribe to our newsletter for updates
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary-custom">
+                                            <span class="loading-spinner" id="contactSpinner"></span>
+                                            <span id="contactBtnText">Send Message</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="mt-5">
+                <div class="card-custom">
+                    <div class="card-body p-0">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1633023222000!5m2!1sen!2sus" width="100%" height="400" style="border:0; border-radius: var(--radius);" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 6: USER PROFILE -->
+    <section id="profile" class="page-section">
+        <div class="container py-5">
+            <button class="btn btn-outline-custom mb-4" onclick="navigateTo('home')">
+                <i class="bi bi-arrow-left"></i> Back to Home
+            </button>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card-custom mb-4">
+                        <div class="card-body text-center p-4">
+                            <div class="user-avatar mx-auto mb-3" style="width: 100px; height: 100px; font-size: 2rem;" id="profileAvatar">JD</div>
+                            <h3 class="fw-bold mb-1" id="profileName">John Doe</h3>
+                            <p class="text-muted mb-3" id="profileEmail">john.doe@example.com</p>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <span class="badge bg-light text-dark">Writer</span>
+                                <span class="badge bg-light text-dark">Member since 2023</span>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <div class="stat-card py-2">
+                                        <div class="stat-number" style="font-size: 1.5rem;">12</div>
+                                        <div class="stat-label" style="font-size: 0.75rem;">Articles</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-card py-2">
+                                        <div class="stat-number" style="font-size: 1.5rem;">2.5K</div>
+                                        <div class="stat-label" style="font-size: 0.75rem;">Views</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-card py-2">
+                                        <div class="stat-number" style="font-size: 1.5rem;">450</div>
+                                        <div class="stat-label" style="font-size: 0.75rem;">Followers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Account Settings</h3>
+                        <ul class="mb-0">
+                            <li class="category-list-item">
+                                <a href="#"><i class="bi bi-person me-2"></i> Edit Profile</a>
+                            </li>
+                            <li class="category-list-item">
+                                <a href="#"><i class="bi bi-lock me-2"></i> Change Password</a>
+                            </li>
+                            <li class="category-list-item">
+                                <a href="#"><i class="bi bi-bell me-2"></i> Notifications</a>
+                            </li>
+                            <li class="category-list-item">
+                                <a href="#"><i class="bi bi-shield me-2"></i> Privacy Settings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="card-custom mb-4">
+                        <div class="card-body">
+                            <h3 class="fw-bold mb-4">My Articles</h3>
+                            <div class="row g-4" id="userArticles">
+                                <!-- User articles will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-custom">
+                        <div class="card-body">
+                            <h3 class="fw-bold mb-4">Saved Articles</h3>
+                            <div class="row g-4" id="savedArticles">
+                                <!-- Saved articles will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h4>StoryFlow</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
-                </ul>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="fw-bold mb-3">
+                        <i class="bi bi-pen-fill text-primary"></i> StoryFlow
+                    </h4>
+                    <p class="text-muted">Empowering writers and readers worldwide. Share your stories, inspire others, and join our growing community.</p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-3">Company</h5>
+                    <a href="#" onclick="navigateTo('about')" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Careers</a>
+                    <a href="#" class="footer-link">Press</a>
+                    <a href="#" class="footer-link">Blog</a>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-3">Resources</h5>
+                    <a href="#" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">Guidelines</a>
+                    <a href="#" class="footer-link">Community</a>
+                    <a href="#" class="footer-link">API</a>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-3">Legal</h5>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Cookie Policy</a>
+                    <a href="#" class="footer-link">DMCA</a>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-3">Connect</h5>
+                    <a href="#" class="footer-link"><i class="bi bi-twitter me-2"></i>Twitter</a>
+                    <a href="#" class="footer-link"><i class="bi bi-instagram me-2"></i>Instagram</a>
+                    <a href="#" class="footer-link"><i class="bi bi-linkedin me-2"></i>LinkedIn</a>
+                    <a href="#" class="footer-link"><i class="bi bi-facebook me-2"></i>Facebook</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Guidelines</a></li>
-                    <li><a href="#">Community</a></li>
-                </ul>
+            <div class="copyright">
+                <p class="mb-0">&copy; 2023 StoryFlow Platform. All rights reserved.</p>
             </div>
-            <div class="footer-col">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">LinkedIn</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2023 StoryFlow Platform. All rights reserved.
         </div>
     </footer>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
     <script>
-        // Mobile Menu Toggle
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.getElementById('navLinks');
+        // ==================== DATA ====================
+        const articles = [
+            {
+                id: 1,
+                title: "The Future of AI in Creative Design",
+                excerpt: "How artificial intelligence is reshaping the landscape of digital art and graphic design tools.",
+                category: "Technology",
+                badge: "badge-tech",
+                author: "Sarah Johnson",
+                authorAvatar: "https://ui-avatars.com/api/?name=Sarah+Johnson&background=random",
+                date: "October 24, 2023",
+                readTime: "6 min read",
+                image: "https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/192770f8f-29b6-4cab-a0f2-351f53e67032.png",
+                likes: 234,
+                comments: 12,
+                content: `<p>Artificial Intelligence has revolutionized countless industries, and creative design is no exception...</p>`
+            },
+            {
+                id: 2,
+                title: "Remote Work: Finding the Perfect Balance",
+                excerpt: "Tips and tricks for maintaining a healthy work-life balance while working from home.",
+                category: "Career",
+                badge: "badge-career",
+                author: "Mike Chen",
+                authorAvatar: "https://ui-avatars.com/api/?name=Mike+Chen&background=random",
+                date: "October 22, 2023",
+                readTime: "5 min read",
+                image: "https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png",
+                likes: 189,
+                comments: 8,
+                content: `<p>Remote work has become the new normal for millions of professionals worldwide...</p>`
+            },
+            {
+                id: 3,
+                title: "5 Nutrient-Packed Bowls for Winter",
+                excerpt: "Stay warm and healthy this season with these delicious and easy-to-make winter salad recipes.",
+                category: "Health",
+                badge: "badge-health",
+                author: "Emma Wilson",
+                authorAvatar: "https://ui-avatars.com/api/?name=Emma+Wilson&background=random",
+                date: "October 20, 2023",
+                readTime: "4 min read",
+                image: "https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/15e09b58c-90c9-49b3-b31d-b8f3c1e129d1.png",
+                likes: 312,
+                comments: 15,
+                content: `<p>Winter doesn't mean you have to give up on fresh, healthy meals...</p>`
+            },
+            {
+                id: 4,
+                title: "Hidden Gems of the Scottish Highlands",
+                excerpt: "A journey through the misty mountains and serene lochs that define the beauty of Scotland.",
+                category: "Travel",
+                badge: "badge-travel",
+                author: "James MacDonald",
+                authorAvatar: "https://ui-avatars.com/api/?name=James+MacDonald&background=random",
+                date: "October 18, 2023",
+                readTime: "7 min read",
+                image: "https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/1c29d77c8-0e60-4e33-b8d1-d5088ef7dab3.png",
+                likes: 276,
+                comments: 19,
+                content: `<p>The Scottish Highlands offer some of the most breathtaking landscapes in the world...</p>`
+            },
+            {
+                id: 5,
+                title: "Mindfulness in the Digital Age",
+                excerpt: "Practical strategies for staying present and reducing digital overwhelm in our connected world.",
+                category: "Lifestyle",
+                badge: "badge-lifestyle",
+                author: "Lisa Park",
+                authorAvatar: "https://ui-avatars.com/api/?name=Lisa+Park&background=random",
+                date: "October 15, 2023",
+                readTime: "5 min read",
+                image: "https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/192770f8f-29b6-4cab-a0f2-351f53e67032.png",
+                likes: 198,
+                comments: 11,
+                content: `<p>In an era of constant notifications and endless scrolling...</p>`
+            },
+            {
+                id: 6,
+                title: "Building Your Personal Brand Online",
+                excerpt: "Essential steps to establish and grow your professional presence in the digital landscape.",
+                category: "Career",
+                badge: "badge-career",
+                author: "David Kim",
+                authorAvatar: "https://ui-avatars.com/api/?name=David+Kim&background=random",
+                date: "October 12, 2023",
+                readTime: "6 min read",
+                image: "https://image.qwenlm.ai/public_source/0f902e94-d761-498c-8260-c9166ed0d1a7/160f6c7c8-707d-4d8e-bb78-243b6adf0f57.png",
+                likes: 245,
+                comments: 14,
+                content: `<p>Your personal brand is how the world perceives you professionally...</p>`
+            }
+        ];
 
-        mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        const comments = [
+            { id: 1, articleId: 1, author: "John Smith", avatar: "https://ui-avatars.com/api/?name=John+Smith&background=random", date: "2 hours ago", text: "Great article! AI tools have really transformed my workflow." },
+            { id: 2, articleId: 1, author: "Maria Garcia", avatar: "https://ui-avatars.com/api/?name=Maria+Garcia&background=random", date: "5 hours ago", text: "Very insightful. Would love to see a follow-up on ethics." },
+            { id: 3, articleId: 1, author: "Alex Thompson", avatar: "https://ui-avatars.com/api/?name=Alex+Thompson&background=random", date: "1 day ago", text: "As a designer, this article perfectly explains the future." }
+        ];
 
-        // Modal Logic
-        const writeBtn = document.getElementById('writeBtn');
-        const writeModal = document.getElementById('writeModal');
-        const closeModal = document.getElementById('closeModal');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const createStoryForm = document.getElementById('createStoryForm');
+        // User State
+        let currentUser = null;
+        let currentArticleId = 1;
+        let isLiked = false;
 
-        function openModal() {
-            writeModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        // ==================== NAVIGATION ====================
+        function navigateTo(page) {
+            $('.page-section').removeClass('active');
+            $(`#${page}`).addClass('active');
+            $('.nav-link').removeClass('active');
+            $(`.nav-link[data-page="${page}"]`).addClass('active');
+            window.scrollTo(0, 0);
+            $('.navbar-collapse').collapse('hide');
+
+            if (page === 'home') loadArticles();
+            if (page === 'article') loadArticle(currentArticleId);
+            if (page === 'profile') loadProfile();
         }
 
-        function hideModal() {
-            writeModal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+        function checkAuthAndNavigate(page) {
+            if (!currentUser) {
+                openLoginModal();
+                showToast('Please login to continue', 'info');
+            } else {
+                navigateTo(page);
+            }
         }
 
-        writeBtn.addEventListener('click', openModal);
-        closeModal.addEventListener('click', hideModal);
-        cancelBtn.addEventListener('click', hideModal);
-        
-        // Close modal when clicking outside
-        writeModal.addEventListener('click', (e) => {
-            if (e.target === writeModal) {
-                hideModal();
+        function viewArticle(id) {
+            currentArticleId = id;
+            navigateTo('article');
+        }
+
+        // ==================== AUTH FUNCTIONS ====================
+        function openLoginModal() {
+            $('#loginModal').addClass('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            $('#loginModal').removeClass('active');
+            document.body.style.overflow = 'auto';
+            $('#loginForm')[0].reset();
+            clearValidation($('#loginForm'));
+        }
+
+        function openRegisterModal() {
+            $('#registerModal').addClass('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRegisterModal() {
+            $('#registerModal').removeClass('active');
+            document.body.style.overflow = 'auto';
+            $('#registerForm')[0].reset();
+            clearValidation($('#registerForm'));
+            $('#passwordStrength').removeClass('weak medium strong');
+        }
+
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
+        function clearValidation(form) {
+            form.find('.form-control-custom').removeClass('is-invalid is-valid');
+        }
+
+        function validateField(input, minLength = 0) {
+            const value = input.val().trim();
+            if (value.length < minLength) {
+                input.addClass('is-invalid').removeClass('is-valid');
+                return false;
+            } else {
+                input.addClass('is-valid').removeClass('is-invalid');
+                return true;
+            }
+        }
+
+        function validateEmail(input) {
+            const value = input.val().trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                input.addClass('is-invalid').removeClass('is-valid');
+                return false;
+            } else {
+                input.addClass('is-valid').removeClass('is-invalid');
+                return true;
+            }
+        }
+
+        function checkPasswordStrength(password) {
+            const requirements = {
+                length: password.length >= 8,
+                number: /\d/.test(password),
+                uppercase: /[A-Z]/.test(password),
+                special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+            };
+
+            // Update UI
+            $('#req-length').toggleClass('valid', requirements.length).toggleClass('invalid', !requirements.length);
+            $('#req-number').toggleClass('valid', requirements.number).toggleClass('invalid', !requirements.number);
+            $('#req-uppercase').toggleClass('valid', requirements.uppercase).toggleClass('invalid', !requirements.uppercase);
+            $('#req-special').toggleClass('valid', requirements.special).toggleClass('invalid', !requirements.special);
+
+            // Update strength bar
+            const strengthBar = $('#passwordStrength');
+            const validCount = Object.values(requirements).filter(v => v).length;
+            strengthBar.removeClass('weak medium strong');
+            if (validCount <= 2) strengthBar.addClass('weak');
+            else if (validCount === 3) strengthBar.addClass('medium');
+            else strengthBar.addClass('strong');
+
+            return requirements;
+        }
+
+        function socialLogin(provider) {
+            showToast(`${provider} login coming soon!`, 'info');
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('storyflow_user');
+            updateAuthUI();
+            navigateTo('home');
+            showToast('Successfully logged out', 'success');
+        }
+
+        function updateAuthUI() {
+            if (currentUser) {
+                $('#authButtons').addClass('d-none');
+                $('#userMenu').removeClass('d-none');
+                $('#userName').text(currentUser.name);
+                $('#userAvatar').text(currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase());
+                $('#profileName').text(currentUser.name);
+                $('#profileEmail').text(currentUser.email);
+                $('#profileAvatar').text(currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase());
+            } else {
+                $('#authButtons').removeClass('d-none');
+                $('#userMenu').addClass('d-none');
+            }
+        }
+
+        function loadProfile() {
+            if (!currentUser) {
+                navigateTo('home');
+                showToast('Please login to view profile', 'info');
+                return;
+            }
+
+            // Load user articles
+            const userArticlesContainer = $('#userArticles');
+            userArticlesContainer.empty();
+            const userArticles = articles.slice(0, 3);
+            userArticles.forEach(article => {
+                userArticlesContainer.append(`
+                    <div class="col-md-6">
+                        <div class="card-custom">
+                            <img src="${article.image}" class="card-img-top" alt="${article.title}">
+                            <div class="card-body">
+                                <h6 class="fw-bold">${article.title}</h6>
+                                <small class="text-muted">${article.date}</small>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+
+            // Load saved articles
+            const savedArticlesContainer = $('#savedArticles');
+            savedArticlesContainer.empty();
+            const savedArticles = articles.slice(3, 5);
+            savedArticles.forEach(article => {
+                savedArticlesContainer.append(`
+                    <div class="col-md-6">
+                        <div class="card-custom">
+                            <img src="${article.image}" class="card-img-top" alt="${article.title}">
+                            <div class="card-body">
+                                <h6 class="fw-bold">${article.title}</h6>
+                                <small class="text-muted">${article.author}</small>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // ==================== FORM HANDLERS ====================
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            if (!validateEmail($('#loginEmail'))) isValid = false;
+            if (!validateField($('#loginPassword'), 1)) isValid = false;
+
+            if (isValid) {
+                const btn = $(this).find('button[type="submit"]');
+                $('#loginSpinner').show();
+                $('#loginBtnText').text('Signing in...');
+                btn.prop('disabled', true);
+
+                setTimeout(() => {
+                    currentUser = {
+                        name: 'John Doe',
+                        email: $('#loginEmail').val(),
+                        avatar: 'JD'
+                    };
+                    localStorage.setItem('storyflow_user', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    closeLoginModal();
+                    showToast('Welcome back, ' + currentUser.name + '!', 'success');
+                    $('#loginSpinner').hide();
+                    $('#loginBtnText').text('Sign In');
+                    btn.prop('disabled', false);
+                }, 1500);
+            } else {
+                showToast('Please fix the errors in the form', 'error');
             }
         });
 
-        // Form Submission Simulation
-        createStoryForm.addEventListener('submit', (e) => {
+        $('#registerForm').on('submit', function(e) {
             e.preventDefault();
-            const btn = createStoryForm.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            
-            btn.innerText = 'Publishing...';
-            btn.disabled = true;
+            let isValid = true;
 
-            setTimeout(() => {
-                btn.innerText = 'Published!';
-                btn.style.background = '#10b981'; // Green success color
-                
+            if (!validateField($('#registerName'), 2)) isValid = false;
+            if (!validateEmail($('#registerEmail'))) isValid = false;
+            
+            const password = $('#registerPassword').val();
+            const requirements = checkPasswordStrength(password);
+            if (!Object.values(requirements).every(v => v)) {
+                $('#registerPassword').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (password !== $('#registerConfirmPassword').val()) {
+                $('#registerConfirmPassword').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!$('#agreeTerms').is(':checked')) {
+                $('#termsError').show();
+                isValid = false;
+            }
+
+            if (isValid) {
+                const btn = $(this).find('button[type="submit"]');
+                $('#registerSpinner').show();
+                $('#registerBtnText').text('Creating account...');
+                btn.prop('disabled', true);
+
                 setTimeout(() => {
-                    hideModal();
-                    createStoryForm.reset();
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                    btn.style.background = ''; // Reset color
-                    alert('Your story has been published successfully!');
-                }, 1000);
-            }, 1500);
+                    currentUser = {
+                        name: $('#registerName').val(),
+                        email: $('#registerEmail').val(),
+                        avatar: $('#registerName').val().split(' ').map(n => n[0]).join('').toUpperCase()
+                    };
+                    localStorage.setItem('storyflow_user', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    closeRegisterModal();
+                    showToast('Account created successfully! Welcome to StoryFlow.', 'success');
+                    $('#registerSpinner').hide();
+                    $('#registerBtnText').text('Create Account');
+                    btn.prop('disabled', false);
+                }, 2000);
+            } else {
+                showToast('Please fix the errors in the form', 'error');
+            }
         });
 
-        // Newsletter Form Simulation
-        const newsletterForm = document.getElementById('newsletterForm');
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = newsletterForm.querySelector('button');
-            const originalText = btn.innerText;
-            
-            btn.innerText = 'Subscribed!';
-            btn.style.background = '#10b981';
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = '';
-                newsletterForm.reset();
-            }, 3000);
+        // Password strength checker
+        $('#registerPassword').on('input', function() {
+            checkPasswordStrength($(this).val());
         });
 
-        // Like Button Toggle
-        const likeBtns = document.querySelectorAll('.like-btn');
-        likeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.classList.toggle('liked');
-                const countSpan = this.querySelector('span');
-                let count = parseInt(countSpan.innerText);
-                
-                if (this.classList.contains('liked')) {
-                    countSpan.innerText = count + 1;
-                } else {
-                    countSpan.innerText = count - 1;
-                }
+        // Terms checkbox validator
+        $('#agreeTerms').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#termsError').hide();
+            }
+        });
+
+        // Real-time validation
+        $('.form-control-custom').on('blur', function() {
+            const input = $(this);
+            if (input.attr('type') === 'email') {
+                validateEmail(input);
+            } else if (input.attr('required')) {
+                validateField(input, 1);
+            }
+        });
+
+        // Close modals on outside click
+        $('.modal-overlay').on('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+                closeRegisterModal();
+            }
+        });
+
+        // ==================== ARTICLE FUNCTIONS ====================
+        function loadArticles() {
+            const grid = $('#articlesGrid');
+            grid.empty();
+            articles.forEach(article => {
+                const card = `
+                    <div class="col-md-6">
+                        <div class="card-custom" onclick="viewArticle(${article.id})" style="cursor: pointer;">
+                            <img src="${article.image}" class="card-img-top" alt="${article.title}">
+                            <div class="card-body">
+                                <span class="badge badge-custom ${article.badge}">${article.category}</span>
+                                <h3 class="card-title">${article.title}</h3>
+                                <p class="card-text">${article.excerpt}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="${article.authorAvatar}" alt="${article.author}" style="width: 32px; height: 32px; border-radius: 50%;">
+                                        <small class="text-muted">${article.author}</small>
+                                    </div>
+                                    <div class="d-flex gap-3 text-muted">
+                                        <span><i class="bi bi-heart"></i> ${article.likes}</span>
+                                        <span><i class="bi bi-chat"></i> ${article.comments}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.append(card);
             });
+        }
+
+        function loadArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            
+            $('#articleCategory').text(article.category).attr('class', `badge badge-custom ${article.badge}`);
+            $('#articleTitle').text(article.title);
+            $('#articleAuthor').text(article.author);
+            $('#articleAuthorAvatar').attr('src', article.authorAvatar);
+            $('#articleDate').text(`${article.date} · ${article.readTime}`);
+            $('#articleImage').attr('src', article.image);
+            $('#articleContent').html(article.content);
+            $('#likeCount').text(article.likes);
+            $('#commentCount').text(article.comments);
+            
+            isLiked = false;
+            $('#likeBtn').removeClass('liked');
+            $('#likeBtn i').removeClass('bi-heart-fill').addClass('bi-heart');
+            
+            loadComments(id);
+            loadRelatedArticles(id);
+        }
+
+        function loadComments(articleId) {
+            const commentList = $('#commentList');
+            commentList.empty();
+            const articleComments = comments.filter(c => c.articleId === articleId);
+            articleComments.forEach(comment => {
+                commentList.append(`
+                    <div class="card-custom mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <img src="${comment.avatar}" alt="${comment.author}" style="width: 40px; height: 40px; border-radius: 50%;">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="fw-bold mb-0">${comment.author}</h6>
+                                        <small class="text-muted">${comment.date}</small>
+                                    </div>
+                                    <p class="text-muted mb-0">${comment.text}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        function loadRelatedArticles(currentId) {
+            const container = $('#relatedArticles');
+            container.empty();
+            const related = articles.filter(a => a.id !== currentId).slice(0, 3);
+            related.forEach(article => {
+                container.append(`
+                    <div class="col-md-4">
+                        <div class="card-custom" onclick="viewArticle(${article.id})" style="cursor: pointer;">
+                            <img src="${article.image}" class="card-img-top" alt="${article.title}" style="height: 150px;">
+                            <div class="card-body p-3">
+                                <h6 class="fw-bold mb-2">${article.title}</h6>
+                                <small class="text-muted">${article.author}</small>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // Like button
+        $(document).on('click', '#likeBtn', function() {
+            const article = articles.find(a => a.id === currentArticleId);
+            isLiked = !isLiked;
+            if (isLiked) {
+                $(this).addClass('liked');
+                $(this).find('i').removeClass('bi-heart').addClass('bi-heart-fill');
+                article.likes++;
+                showToast('Article liked!', 'success');
+            } else {
+                $(this).removeClass('liked');
+                $(this).find('i').removeClass('bi-heart-fill').addClass('bi-heart');
+                article.likes--;
+            }
+            $('#likeCount').text(article.likes);
+        });
+
+        // Comment form
+        $('#commentForm').on('submit', function(e) {
+            e.preventDefault();
+            const textarea = $(this).find('textarea');
+            const text = textarea.val().trim();
+            if (text.length < 5) {
+                showToast('Comment is too short', 'error');
+                return;
+            }
+            comments.push({
+                id: comments.length + 1,
+                articleId: currentArticleId,
+                author: currentUser ? currentUser.name : "Anonymous",
+                avatar: "https://ui-avatars.com/api/?name=" + (currentUser ? currentUser.name : "Anonymous") + "&background=random",
+                date: "Just now",
+                text: text
+            });
+            loadComments(currentArticleId);
+            textarea.val('');
+            showToast('Comment posted!', 'success');
+        });
+
+        // Create article form
+        $('#createArticleForm').on('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            if (!validateField($('#articleTitleInput'), 10)) isValid = false;
+            if ($('#articleCategoryInput').val() === '') {
+                $('#articleCategoryInput').addClass('is-invalid');
+                isValid = false;
+            }
+            if (!validateField($('#articleContentInput'), 50)) isValid = false;
+
+            if (isValid) {
+                const btn = $(this).find('button[type="submit"]');
+                $('#publishSpinner').show();
+                $('#publishBtnText').text('Publishing...');
+                btn.prop('disabled', true);
+                setTimeout(() => {
+                    $('#publishSpinner').hide();
+                    $('#publishBtnText').text('Published!');
+                    btn.css('background', '#10b981');
+                    setTimeout(() => {
+                        showToast('Article published successfully!', 'success');
+                        navigateTo('home');
+                        $(this)[0].reset();
+                        btn.prop('disabled', false);
+                        btn.css('background', '');
+                        $('#publishBtnText').text('Publish Story');
+                    }, 1000);
+                }, 1500);
+            } else {
+                showToast('Please fix the errors in the form', 'error');
+            }
+        });
+
+        // Character counter
+        $('#articleContentInput').on('input', function() {
+            $('#charCount').text(`${$(this).val().length} characters`);
+        });
+
+        // Newsletter form
+        $('#newsletterForm').on('submit', function(e) {
+            e.preventDefault();
+            const emailInput = $(this).find('input[type="email"]');
+            if (validateEmail(emailInput)) {
+                const btn = $(this).find('button');
+                const originalText = btn.html();
+                btn.html('<i class="bi bi-check-lg"></i> Subscribed!');
+                btn.css('background', '#10b981');
+                showToast('Successfully subscribed to newsletter!', 'success');
+                setTimeout(() => {
+                    btn.html(originalText);
+                    btn.css('background', '');
+                    $(this)[0].reset();
+                }, 3000);
+            }
+        });
+
+        // Contact form
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            if (!validateField($('#firstName'), 1)) isValid = false;
+            if (!validateField($('#lastName'), 1)) isValid = false;
+            if (!validateEmail($('#contactEmail'))) isValid = false;
+            if ($('#subject').val() === '') {
+                $('#subject').addClass('is-invalid');
+                isValid = false;
+            }
+            if (!validateField($('#message'), 20)) isValid = false;
+
+            if (isValid) {
+                const btn = $(this).find('button[type="submit"]');
+                $('#contactSpinner').show();
+                $('#contactBtnText').text('Sending...');
+                btn.prop('disabled', true);
+                setTimeout(() => {
+                    $('#contactSpinner').hide();
+                    $('#contactBtnText').text('Sent!');
+                    btn.css('background', '#10b981');
+                    setTimeout(() => {
+                        showToast('Message sent successfully!', 'success');
+                        $(this)[0].reset();
+                        btn.prop('disabled', false);
+                        btn.css('background', '');
+                        $('#contactBtnText').text('Send Message');
+                    }, 1000);
+                }, 1500);
+            } else {
+                showToast('Please fix the errors in the form', 'error');
+            }
+        });
+
+        // Toast notification
+        function showToast(message, type = 'info') {
+            const toast = `
+                <div class="toast-custom ${type}">
+                    <i class="bi bi-${type === 'success' ? 'check-circle-fill' : type === 'error' ? 'exclamation-circle-fill' : 'info-circle-fill'} text-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'primary'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            $('#toastContainer').append(toast);
+            setTimeout(() => {
+                $('#toastContainer .toast-custom').first().fadeOut(300, function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+
+        // Initialize
+        $(document).ready(function() {
+            // Check for saved user
+            const savedUser = localStorage.getItem('storyflow_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateAuthUI();
+            }
+            loadArticles();
+            $('html').css('scroll-behavior', 'smooth');
         });
     </script>
 </body>
